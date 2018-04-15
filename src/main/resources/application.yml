@@ -1,0 +1,26 @@
+server:
+   tomcat:
+     max-threads: 600
+     max-connections: 200
+     min-spare-threads: 300
+     accept-count: 700
+
+#LOGGING
+logging:
+    config: classpath:logback.xml
+
+#spring config
+spring:
+    datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://45.78.4.142:3306/ad?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: project
+      password: 123456
+
+#    mvc:
+#        favicon:
+#            enabled: false
+# MyBatis
+mybatis:
+    mapper-locations: classpath*:mapper/*.xml
+    config: classpath:mybatis-config.xml

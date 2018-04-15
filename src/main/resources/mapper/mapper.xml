@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bp.dao.CoreDao" >
+
+    <insert id="insertAgency" parameterType="com.bp.po.Agency">
+        INSERT INTO ad.t_agency(city_id,agency_name,agency_address,connect_phone,create_time) VALUES(    #{city_id},#{agency_name},#{agency_address}, #{connect_phone},#{create_time});
+    </insert>
+    <insert id="insertBrand" parameterType="com.bp.po.Brand">
+        INSERT INTO ad.t_brand( name,decription,status)VALUES(#{name}, #{decription}, #{status});
+    </insert>
+    <insert id="insertCar" parameterType="com.bp.po.Car">
+        INSERT INTO ad.t_car(name,description,status, brand_id)VALUES(#{name},#{description},#{status}, #{brand_id});
+    </insert>
+    <insert id="insertChannel" parameterType="com.bp.po.Channel">
+        INSERT INTO ad.t_channel(name,status,url) VALUES(#{name},#{status},#{url});
+    </insert>
+    <insert id="insertCity" parameterType="com.bp.po.City">
+        INSERT INTO ad.t_city( province_id,city_name) VALUES(#{province_id}, #{city_name});
+    </insert>
+    <insert id="insertOrder" parameterType="com.bp.po.Order">
+        INSERT INTO ad.t_order(user_name,user_phone,user_sex, agency_id,city_id,province_id,car_type_id,channel_id,create_time,update_time,status,)
+        VALUES( #{user_name},#{user_phone},#{user_sex},#{agency_id},#{city_id},#{province_id},#{car_type_id},#{channel_id},#{create_time},#{update_time},#{status});
+    </insert>
+    <insert id="insertOrderDetail" parameterType="com.bp.po.OrderDetail">
+        INSERT INTO ad.t_order_detail( name,sex,mobile,province,city,agentName,agentCode,carType,carTypeCode,mediaName,mediaUrl,subject,terminal,create_time,is_activity)
+        VALUES( #{name},#{sex},#{mobile}, #{province}, #{city},#{agentName},#{agentCode},#{carType},#{carTypeCode},#{mediaName},#{mediaUrl},#{subject},#{terminal},#{create_time},#{is_activity});
+    </insert>
+    <insert id="insertProvince" parameterType="com.bp.po.Province">
+        INSERT INTO ad.t_province( province_name) VALUES(#{province_name});
+    </insert>
+    <insert id="insertSupervisor" parameterType="com.bp.po.Supervisor">
+        INSERT INTO ad.t_supervisor( supervisor_name,supervisor_phone,password,sex,birthday,qq,email,head_image_path,status,create_time)
+        VALUES(#{supervisor_name},#{supervisor_phone},#{password},#{sex},#{birthday},#{qq},#{email},#{head_image_path},#{status},#{create_time});
+    </insert>
+    <insert id="insertSupervisorEvent" parameterType="com.bp.po.SupervisorEvent">
+        INSERT INTO ad.t_province_event( supervisor_id,event_name,ip,create_time)
+        VALUES(#{supervisor_id},#{event_name},#{ip},#{create_time});
+    </insert>
+
+    <insert id="insertUser" parameterType="com.bp.po.User">
+        INSERT INTO ad.t_users( user_name,phone,sex,soft_del,create_time)
+        VALUES(#{user_name},#{phone},#{sex},#{soft_del},#{create_time});
+    </insert>
+
+
+    <select id="queryAgencyList" parameterType="com.bp.po.Agency"
+            resultType="com.bp.po.Agency">
+        SELECT * FROM ad.t_agency
+        <where>
+            <trim prefixOverrides="and">
+                <if test="city_id != null">
+                    city_id = #{city_id}
+                </if>
+                <if test="agency_name != null">
+                    and agency_name = #{agency_name}
+                </if>
+                <if test="agency_address != null">
+                    and agency_address = #{agency_address}
+                </if>
+                <if test="connect_phone != null">
+                    and connect_phone = #{connect_phone}
+                </if>
+                <if test="create_time != null">
+                    and create_time = #{create_time}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+    <select id="queryUserList" parameterType="com.bp.po.User"
+            resultType="com.bp.po.User" resultSets="java.util.List">
+        SELECT * FROM ad.t_users
+        <where>
+            <trim prefixOverrides="and">
+                <if test="user_name != null">
+                    user_name = #{user_name}
+                </if>
+                <if test="phone != null">
+                    and phone = #{phone}
+                </if>
+                <if test="sex != null">
+                    and sex = #{sex}
+                </if>
+                <if test="soft_del != null">
+                    and soft_del = #{soft_del}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+    <select id="queryOrderList" parameterType="com.bp.po.Order"
+            resultType="com.bp.po.Order">
+        SELECT * FROM ad.order
+        <where>
+            <trim prefixOverrides="and">
+                <if test="user_name != null">
+                    user_name = #{user_name}
+                </if>
+                <if test="user_phone != null">
+                    and user_phone = #{user_phone}
+                </if>
+                <if test="user_sex != null">
+                    and user_sex = #{user_sex}
+                </if>
+                <if test="agency_id != null">
+                    and agency_id = #{agency_id}
+                </if>
+                <if test="city_id != null">
+                    and city_id = #{city_id}
+                </if>
+                <if test="province_id != null">
+                    and province_id = #{province_id}
+                </if>
+                <if test="car_type_id != null">
+                    and car_type_id = #{car_type_id}
+                </if>
+                <if test="channel_id != null">
+                    and channel_id = #{channel_id}
+                </if>
+                <if test="create_time != null">
+                    and create_time = #{create_time}
+                </if>
+                <if test="update_time != null">
+                    and update_time = #{update_time}
+                </if>
+                <if test="status != null">
+                    and status = #{status}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+    <select id="queryOrderDetailList" parameterType="com.bp.po.OrderDetail"
+            resultType="com.bp.po.OrderDetail">
+        SELECT * FROM ad.t_order_detail
+        <where>
+
+            <trim prefixOverrides="and">
+                <if test="name != null">
+                    name = #{name}
+                </if>
+                <if test="sex != null">
+                    and sex = #{sex}
+                </if>
+                <if test="mobile != null">
+                    and mobile = #{mobile}
+                </if>
+                <if test="province != null">
+                    and province = #{province}
+                </if>
+                <if test="city != null">
+                    and city = #{city}
+                </if>
+                <if test="agentName != null">
+                    and agentName = #{agentName}
+                </if>
+                <if test="agentCode != null">
+                    and agentCode = #{agentCode}
+                </if>
+                <if test="carType != null">
+                    and carType = #{carType}
+                </if>
+                <if test="carTypeCode != null">
+                    and carTypeCode = #{carTypeCode}
+                </if>
+                <if test="mediaName != null">
+                    and mediaName = #{mediaName}
+                </if>
+                <if test="mediaUrl != null">
+                    and mediaUrl = #{mediaUrl}
+                </if>
+                <if test="subject != null">
+                    and subject = #{subject}
+                </if>
+                <if test="terminal != null">
+                    and terminal = #{terminal}
+                </if>
+                <if test="create_time != null">
+                    and create_time = #{create_time}
+                </if>
+                <if test="is_activity != null">
+                    and is_activity = #{is_activity}
+                </if>
+            </trim>
+        </where>
+    </select>
+</mapper>
