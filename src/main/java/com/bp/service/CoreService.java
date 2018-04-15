@@ -28,6 +28,8 @@ public interface CoreService {
 
     Integer insertUser(User user);
 
+    Integer insertPhoneRecord(PhoneRecord phoneRecord);
+
     List<Agency> queryAgencyList(Agency agency, String fromDate, String toDate, Integer page, Integer rows);
 
     List<OrderDetail> queryOrderDetailList(OrderDetail orderDetail, String fromDate, String toDate, Integer page, Integer rows);
@@ -37,4 +39,6 @@ public interface CoreService {
     List<Order> queryOrderList(Order order, String fromDate, String toDate, Integer page, Integer rows);
 
     List<User> queryUserList(User user, String fromDate, String toDate, Integer page, Integer rows);
+
+
 }

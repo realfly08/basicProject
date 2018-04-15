@@ -30,17 +30,14 @@ public interface CoreDao {
 
     Integer insertUser(User user);
 
-    List<Agency> queryAgencyList(Agency agency);
-
-    List<OrderDetail> queryOrderDetailList(OrderDetail orderDetail);
-
-    List<Order> queryOrderList(Order order);
-
-    List<User> queryUserList(User user);
+    Integer insertPhoneRecord(PhoneRecord phoneRecord);
 
     List<Agency> queryAgencyByTime(Map paramsMap);
+
     List<OrderDetail> queryOrderDetailByTime(Map paramsMap);
+
     List<Order> queryOrderByTime(Map paramsMap);
+
     List<User> queryUserByTime(Map paramsMap);
 
     List<PhoneRecord> queryPhoneRecord(PhoneRecord phoneRecord);
