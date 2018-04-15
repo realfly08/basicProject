@@ -28,11 +28,13 @@ public interface CoreService {
 
     Integer insertUser(User user);
 
-    List<Agency> queryAgencyList(Agency agency, Integer page, Integer rows);
+    List<Agency> queryAgencyList(Agency agency, String fromDate, String toDate, Integer page, Integer rows);
 
-    List<OrderDetail> queryOrderDetailList(OrderDetail orderDetail);
+    List<OrderDetail> queryOrderDetailList(OrderDetail orderDetail, String fromDate, String toDate, Integer page, Integer rows);
 
-    List<Order> queryOrderList(Order order, Integer page, Integer rows);
+    List<PhoneRecord> queryPhoneRecordList(PhoneRecord phoneRecord, Integer page, Integer rows);
 
-    List<User> queryUserList(User user, Integer page, Integer rows);
+    List<Order> queryOrderList(Order order, String fromDate, String toDate, Integer page, Integer rows);
+
+    List<User> queryUserList(User user, String fromDate, String toDate, Integer page, Integer rows);
 }

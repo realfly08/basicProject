@@ -4,10 +4,13 @@ import com.bp.dao.CoreDao;
 import com.bp.po.*;
 import com.bp.service.CoreService;
 import com.github.pagehelper.PageHelper;
+import com.mysql.jdbc.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component("coreService")
 public class CoreServiceImpl implements CoreService {
@@ -68,27 +71,79 @@ public class CoreServiceImpl implements CoreService {
         return coreDao.insertUser(user);
     }
 
-    @Override
-    public List<Agency> queryAgencyList(Agency agency,Integer page, Integer rows) {
+    public List<Agency> queryAgencyList(Agency agency, String fromDate, String toDate, Integer page, Integer rows){
+        Map paramsMap = new HashMap<String,Object>();
+        if(agency==null){
+            agency = new Agency();
+        }
+        if(!StringUtils.isNullOrEmpty(fromDate)){
+            paramsMap.put("fromDate",fromDate);
+        }
+        if(!StringUtils.isNullOrEmpty(toDate)){
+            paramsMap.put("toDate",toDate);
+        }
+        paramsMap.put("agency",agency);
         PageHelper.startPage(page,rows);
-        return coreDao.queryAgencyList(agency);
+        return coreDao.queryAgencyByTime(paramsMap);
     }
 
-    @Override
-    public List<OrderDetail> queryOrderDetailList(OrderDetail orderDetail) {
-        PageHelper.startPage(orderDetail.getPageNum(),orderDetail.getPageSize());
-        return coreDao.queryOrderDetailList(orderDetail);
+    public List<OrderDetail> queryOrderDetailList(OrderDetail orderDetail, String fromDate, String toDate, Integer page, Integer rows){
+        Map paramsMap = new HashMap<String,Object>();
+        if(orderDetail==null){
+            orderDetail = new OrderDetail();
+        }
+        if(!StringUtils.isNullOrEmpty(fromDate)){
+            paramsMap.put("fromDate",fromDate);
+        }
+        if(!StringUtils.isNullOrEmpty(toDate)){
+            paramsMap.put("toDate",toDate);
+        }
+        paramsMap.put("orderDetail",orderDetail);
+        if(page!=null && rows!=null){
+            PageHelper.startPage(page,rows);
+        }
+        return coreDao.queryOrderDetailByTime(paramsMap);
     }
 
-    @Override
-    public List<Order> queryOrderList(Order order,Integer page, Integer rows) {
+    public List<Order> queryOrderList(Order order, String fromDate, String toDate, Integer page, Integer rows){
+        Map paramsMap = new HashMap<String,Object>();
+        if(order==null){
+            order = new Order();
+        }
+        if(!StringUtils.isNullOrEmpty(fromDate)){
+            paramsMap.put("fromDate",fromDate);
+        }
+        if(!StringUtils.isNullOrEmpty(toDate)){
+            paramsMap.put("toDate",toDate);
+        }
+        paramsMap.put("order",order);
         PageHelper.startPage(page,rows);
-        return null;
+        return coreDao.queryOrderByTime(paramsMap);
     }
 
-    @Override
-    public List<User> queryUserList(User user,Integer page, Integer rows) {
+    public List<User> queryUserList(User user, String fromDate, String toDate, Integer page, Integer rows){
+        Map paramsMap = new HashMap<String,Object>();
+        if(user==null){
+            user = new User();
+        }
+        if(!StringUtils.isNullOrEmpty(fromDate)){
+            paramsMap.put("fromDate",fromDate);
+        }
+        if(!StringUtils.isNullOrEmpty(toDate)){
+            paramsMap.put("toDate",toDate);
+        }
+        paramsMap.put("user",user);
         PageHelper.startPage(page,rows);
-        return null;
+        return coreDao.queryUserByTime(paramsMap);
+    }
+
+    public List<PhoneRecord> queryPhoneRecordList(PhoneRecord phoneRecord, Integer page, Integer rows){
+        if(phoneRecord==null){
+            phoneRecord = new PhoneRecord();
+        }
+        if(page!=null && rows!=null){
+            PageHelper.startPage(page,rows);
+        }
+        return coreDao.queryPhoneRecord(phoneRecord);
     }
 }
