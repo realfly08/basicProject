@@ -42,6 +42,10 @@
         VALUES(#{user_name},#{phone},#{sex},#{soft_del},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'));
     </insert>
 
+    <insert id="insertPhoneRecord" parameterType="com.bp.po.PhoneRecord">
+        INSERT INTO project.t_phone_record( phone,agent_name,province,city)
+        VALUES(#{phone},#{agent_name},#{province},#{city});
+    </insert>
 
     <select id="queryAgencyList" parameterType="com.bp.po.Agency"
             resultType="com.bp.po.Agency">
@@ -347,7 +351,7 @@
 
     <select id="queryPhoneRecord" parameterType="com.bp.po.PhoneRecord"
             resultType="com.bp.po.PhoneRecord" resultSets="java.util.List">
-        SELECT * FROM project.t_users
+        SELECT * FROM project.t_phone_record
         <where>
             <trim prefixOverrides="and">
                 <if test="phone != null">

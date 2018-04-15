@@ -70,6 +70,10 @@ public class CoreServiceImpl implements CoreService {
     public Integer insertUser(User user) {
         return coreDao.insertUser(user);
     }
+    @Override
+    public Integer insertPhoneRecord(PhoneRecord phoneRecord){
+        return coreDao.insertPhoneRecord(phoneRecord);
+    }
 
     public List<Agency> queryAgencyList(Agency agency, String fromDate, String toDate, Integer page, Integer rows){
         Map paramsMap = new HashMap<String,Object>();
@@ -133,7 +137,9 @@ public class CoreServiceImpl implements CoreService {
             paramsMap.put("toDate",toDate);
         }
         paramsMap.put("user",user);
-        PageHelper.startPage(page,rows);
+        if(page!=null && rows!=null){
+            PageHelper.startPage(page,rows);
+        }
         return coreDao.queryUserByTime(paramsMap);
     }
 
