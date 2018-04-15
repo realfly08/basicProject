@@ -1,35 +1,45 @@
 package com.bp.po;
 
-import java.io.Serializable;
+import java.time.LocalDateTime;
 
-public class User implements Serializable {
-    private String id;
+public class User extends IdentifiableDateRange {
+    private String userName;
+    private String phone;
+    private Integer sex;
+    private LocalDateTime createTime;
 
-    private String username;
-
-    private String password;
-
-    public String getId() {
-        return id;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getPassword() {
-        return password;
+    public Integer getSex() {
+        return sex;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
     }
 }
+
+
+

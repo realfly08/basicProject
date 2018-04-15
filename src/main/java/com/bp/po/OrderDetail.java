@@ -1,42 +1,27 @@
 package com.bp.po;
 
-public class OrderDetail {
+import org.springframework.format.annotation.DateTimeFormat;
 
-    private Integer pageNum;
+import java.time.LocalDateTime;
 
-    public Integer getPageNum() {
-        return pageNum;
-    }
+public class OrderDetail extends IdentifiableDateRange {
+    private String name;
+    private String sex;
+    private String mobile;
+    private String province;
+    private String city;
+    private String agentName;
+    private Integer agentCode;
+    private String carType;
+    private Integer carTypeCode;
+    private String mediaName;
+    private String mediaUrl;
+    private String subject;
+    private String terminal;
 
-    public void setPageNum(Integer pageNum) {
-        this.pageNum = pageNum;
-    }
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    private Integer pageSize;
-
-    String name;
-    String sex;
-    String mobile;
-    String province;
-    String city;
-    String agentName;
-    String agentCode;
-    String carType;
-    String carTypeCode;
-    String mediaName;
-    String mediaUrl;
-    String subject;
-    String terminal;
-    String create_time;
-    String is_activity;
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private LocalDateTime createTime;
+    private Integer isActivity;
 
     public String getName() {
         return name;
@@ -86,11 +71,11 @@ public class OrderDetail {
         this.agentName = agentName;
     }
 
-    public String getAgentCode() {
+    public Integer getAgentCode() {
         return agentCode;
     }
 
-    public void setAgentCode(String agentCode) {
+    public void setAgentCode(Integer agentCode) {
         this.agentCode = agentCode;
     }
 
@@ -102,11 +87,11 @@ public class OrderDetail {
         this.carType = carType;
     }
 
-    public String getCarTypeCode() {
+    public Integer getCarTypeCode() {
         return carTypeCode;
     }
 
-    public void setCarTypeCode(String carTypeCode) {
+    public void setCarTypeCode(Integer carTypeCode) {
         this.carTypeCode = carTypeCode;
     }
 
@@ -142,19 +127,22 @@ public class OrderDetail {
         this.terminal = terminal;
     }
 
-    public String getCreate_time() {
-        return create_time;
+    public LocalDateTime getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(String create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
     }
 
-    public String getIs_activity() {
-        return is_activity;
+    public Integer getIsActivity() {
+        return isActivity;
     }
 
-    public void setIs_activity(String is_activity) {
-        this.is_activity = is_activity;
+    public void setIsActivity(Integer isActivity) {
+        this.isActivity = isActivity;
     }
+
+
+
 }

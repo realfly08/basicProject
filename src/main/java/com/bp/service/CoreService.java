@@ -1,38 +1,22 @@
 package com.bp.service;
 
-import com.bp.po.*;
+import com.bp.po.OrderDetail;
+import com.bp.po.User;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface CoreService {
+public interface CoreService extends PageService{
 
-    Integer insertAgency(Agency agency);
-
-    Integer insertBrand(Brand brand);
-
-    Integer insertCar(Car car);
-
-    Integer insertChannel(Channel channel);
-
-    Integer insertCity(City city);
-
-    Integer insertOrder(Order order);
-
+    @Transactional
     Integer insertOrderDetail(OrderDetail orderDetail);
 
-    Integer insertProvince(Province province);
-
-    Integer insertSupervisor(Supervisor supervisor);
-
-    Integer insertSupervisorEvent(SupervisorEvent provinceEvent);
-
+    @Transactional
     Integer insertUser(User user);
 
-    List<Agency> queryAgencyList(Agency agency, Integer page, Integer rows);
-
+    @Transactional
     List<OrderDetail> queryOrderDetailList(OrderDetail orderDetail);
 
-    List<Order> queryOrderList(Order order, Integer page, Integer rows);
-
-    List<User> queryUserList(User user, Integer page, Integer rows);
+    @Transactional
+    List<User> queryUserList(User user);
 }
