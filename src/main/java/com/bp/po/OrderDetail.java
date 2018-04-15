@@ -1,41 +1,38 @@
 package com.bp.po;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
+
 public class OrderDetail {
 
-    private Integer pageNum;
-
-    public Integer getPageNum() {
-        return pageNum;
-    }
-
-    public void setPageNum(Integer pageNum) {
-        this.pageNum = pageNum;
-    }
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    private Integer pageSize;
-
+    @Excel(name = "姓名", orderNum = "0")
     String name;
+    @Excel(name = "性别", replace = {"男_1", "女_2"}, orderNum = "1")
     String sex;
+    @Excel(name = "手机",  orderNum = "2")
     String mobile;
+    @Excel(name = "省",  orderNum = "3")
     String province;
+    @Excel(name = "市",  orderNum = "4")
     String city;
+    @Excel(name = "经销商",  orderNum = "5")
     String agentName;
+    @Excel(name = "经销商code",  orderNum = "6")
     String agentCode;
+    @Excel(name = "车型",  orderNum = "7")
     String carType;
+    @Excel(name = "车型code",  orderNum = "8")
     String carTypeCode;
+    @Excel(name = "媒体名字",  orderNum = "9")
     String mediaName;
+    @Excel(name = "媒体url",  orderNum = "10")
     String mediaUrl;
+    @Excel(name = "主题",  orderNum = "11")
     String subject;
+    @Excel(name = "途径",  orderNum = "12")
     String terminal;
+    @Excel(name = "创建时间",  orderNum = "13")
     String create_time;
+    @Excel(name = "活动专题",  orderNum = "14")
     String is_activity;
 
     public String getName() {

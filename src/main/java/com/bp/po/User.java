@@ -1,35 +1,49 @@
 package com.bp.po;
 
-import java.io.Serializable;
+public class User {
+    String user_name;
+    String phone;
+    String sex;
+    String soft_del;
+    String create_time;
 
-public class User implements Serializable {
-    private String id;
-
-    private String username;
-
-    private String password;
-
-    public String getId() {
-        return id;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
-    public String getUsername() {
-        return username;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSex() {
+        return sex;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getSoft_del() {
+        return soft_del;
+    }
+
+    public void setSoft_del(String soft_del) {
+        this.soft_del = soft_del;
+    }
+
+    public String getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(String create_time) {
+        this.create_time = create_time;
     }
 }
