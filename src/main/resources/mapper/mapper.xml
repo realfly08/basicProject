@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bp.dao.CoreDao" >
+<mapper namespace="com.bp.dao.CoreDao"  >
 
     <insert id="insertAgency" parameterType="com.bp.po.Agency">
-        INSERT INTO ad.t_agency(city_id,agency_name,agency_address,connect_phone,create_time) VALUES(    #{city_id},#{agency_name},#{agency_address}, #{connect_phone},#{create_time});
+        INSERT INTO project.t_agency(city_id,agency_name,agency_address,connect_phone,create_time) VALUES(    #{city_id},#{agency_name},#{agency_address}, #{connect_phone},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'));
     </insert>
     <insert id="insertBrand" parameterType="com.bp.po.Brand">
-        INSERT INTO ad.t_brand( name,decription,status)VALUES(#{name}, #{decription}, #{status});
+        INSERT INTO project.t_brand( name,decription,status)VALUES(#{name}, #{decription}, #{status});
     </insert>
     <insert id="insertCar" parameterType="com.bp.po.Car">
-        INSERT INTO ad.t_car(name,description,status, brand_id)VALUES(#{name},#{description},#{status}, #{brand_id});
+        INSERT INTO project.t_car(name,description,status, brand_id)VALUES(#{name},#{description},#{status}, #{brand_id});
     </insert>
     <insert id="insertChannel" parameterType="com.bp.po.Channel">
-        INSERT INTO ad.t_channel(name,status,url) VALUES(#{name},#{status},#{url});
+        INSERT INTO project.t_channel(name,status,url) VALUES(#{name},#{status},#{url});
     </insert>
     <insert id="insertCity" parameterType="com.bp.po.City">
-        INSERT INTO ad.t_city( province_id,city_name) VALUES(#{province_id}, #{city_name});
+        INSERT INTO project.t_city( province_id,city_name) VALUES(#{province_id}, #{city_name});
     </insert>
     <insert id="insertOrder" parameterType="com.bp.po.Order">
-        INSERT INTO ad.t_order(user_name,user_phone,user_sex, agency_id,city_id,province_id,car_type_id,channel_id,create_time,update_time,status,)
-        VALUES( #{user_name},#{user_phone},#{user_sex},#{agency_id},#{city_id},#{province_id},#{car_type_id},#{channel_id},#{create_time},#{update_time},#{status});
+        INSERT INTO project.t_order(user_name,user_phone,user_sex, agency_id,city_id,province_id,car_type_id,channel_id,create_time,update_time,status,)
+        VALUES( #{user_name},#{user_phone},#{user_sex},#{agency_id},#{city_id},#{province_id},#{car_type_id},#{channel_id},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'),str_to_date(#{update_time},'%Y-%m-%d %H:%i:%s'),#{status});
     </insert>
     <insert id="insertOrderDetail" parameterType="com.bp.po.OrderDetail">
-        INSERT INTO ad.t_order_detail( name,sex,mobile,province,city,agentName,agentCode,carType,carTypeCode,mediaName,mediaUrl,subject,terminal,create_time,is_activity)
-        VALUES( #{name},#{sex},#{mobile}, #{province}, #{city},#{agentName},#{agentCode},#{carType},#{carTypeCode},#{mediaName},#{mediaUrl},#{subject},#{terminal},#{create_time},#{is_activity});
+        INSERT INTO project.t_order_detail( name,sex,mobile,province,city,agentName,agentCode,carType,carTypeCode,mediaName,mediaUrl,subject,terminal,create_time,is_activity)
+        VALUES( #{name},#{sex},#{mobile}, #{province}, #{city},#{agentName},#{agentCode},#{carType},#{carTypeCode},#{mediaName},#{mediaUrl},#{subject},#{terminal},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'),#{is_activity});
     </insert>
     <insert id="insertProvince" parameterType="com.bp.po.Province">
-        INSERT INTO ad.t_province( province_name) VALUES(#{province_name});
+        INSERT INTO project.t_province( province_name) VALUES(#{province_name});
     </insert>
     <insert id="insertSupervisor" parameterType="com.bp.po.Supervisor">
-        INSERT INTO ad.t_supervisor( supervisor_name,supervisor_phone,password,sex,birthday,qq,email,head_image_path,status,create_time)
-        VALUES(#{supervisor_name},#{supervisor_phone},#{password},#{sex},#{birthday},#{qq},#{email},#{head_image_path},#{status},#{create_time});
+        INSERT INTO project.t_supervisor( supervisor_name,supervisor_phone,password,sex,birthday,qq,email,head_image_path,status,create_time)
+        VALUES(#{supervisor_name},#{supervisor_phone},#{password},#{sex},#{birthday},#{qq},#{email},#{head_image_path},#{status},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'));
     </insert>
     <insert id="insertSupervisorEvent" parameterType="com.bp.po.SupervisorEvent">
-        INSERT INTO ad.t_province_event( supervisor_id,event_name,ip,create_time)
-        VALUES(#{supervisor_id},#{event_name},#{ip},#{create_time});
+        INSERT INTO project.t_province_event( supervisor_id,event_name,ip,create_time)
+        VALUES(#{supervisor_id},#{event_name},#{ip},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'));
     </insert>
 
     <insert id="insertUser" parameterType="com.bp.po.User">
-        INSERT INTO ad.t_users( user_name,phone,sex,soft_del,create_time)
-        VALUES(#{user_name},#{phone},#{sex},#{soft_del},#{create_time});
+        INSERT INTO project.t_users( user_name,phone,sex,soft_del,create_time)
+        VALUES(#{user_name},#{phone},#{sex},#{soft_del},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'));
     </insert>
 
 
     <select id="queryAgencyList" parameterType="com.bp.po.Agency"
             resultType="com.bp.po.Agency">
-        SELECT * FROM ad.t_agency
+        SELECT * FROM project.t_agency
         <where>
             <trim prefixOverrides="and">
                 <if test="city_id != null">
@@ -61,7 +61,7 @@
                     and connect_phone = #{connect_phone}
                 </if>
                 <if test="create_time != null">
-                    and create_time = #{create_time}
+                    and create_time = date_format(#{create_time},'%Y-%m-%d %h:%i:%s')
                 </if>
             </trim>
         </where>
@@ -69,7 +69,7 @@
 
     <select id="queryUserList" parameterType="com.bp.po.User"
             resultType="com.bp.po.User" resultSets="java.util.List">
-        SELECT * FROM ad.t_users
+        SELECT * FROM project.t_users
         <where>
             <trim prefixOverrides="and">
                 <if test="user_name != null">
@@ -84,13 +84,16 @@
                 <if test="soft_del != null">
                     and soft_del = #{soft_del}
                 </if>
+                <if test="create_time != null">
+                    and create_time = date_format(#{create_time},'%Y-%m-%d %h:%i:%s')
+                </if>
             </trim>
         </where>
     </select>
 
     <select id="queryOrderList" parameterType="com.bp.po.Order"
             resultType="com.bp.po.Order">
-        SELECT * FROM ad.order
+        SELECT * FROM project.t_order
         <where>
             <trim prefixOverrides="and">
                 <if test="user_name != null">
@@ -118,10 +121,10 @@
                     and channel_id = #{channel_id}
                 </if>
                 <if test="create_time != null">
-                    and create_time = #{create_time}
+                    and create_time = date_format(#{create_time},'%Y-%m-%d %h:%i:%s')
                 </if>
                 <if test="update_time != null">
-                    and update_time = #{update_time}
+                    and update_time = date_format(#{update_time},'%Y-%m-%d %h:%i:%s')
                 </if>
                 <if test="status != null">
                     and status = #{status}
@@ -132,7 +135,7 @@
 
     <select id="queryOrderDetailList" parameterType="com.bp.po.OrderDetail"
             resultType="com.bp.po.OrderDetail">
-        SELECT * FROM ad.t_order_detail
+        SELECT * FROM project.t_order_detail
         <where>
 
             <trim prefixOverrides="and">
@@ -176,10 +179,188 @@
                     and terminal = #{terminal}
                 </if>
                 <if test="create_time != null">
-                    and create_time = #{create_time}
+                    and create_time = date_format(#{create_time},'%Y-%m-%d %h:%i:%s')
                 </if>
                 <if test="is_activity != null">
                     and is_activity = #{is_activity}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+
+    <select id="queryAgencyByByTime" parameterType="Map"
+            resultType="com.bp.po.Agency">
+        SELECT * FROM project.t_agency
+        <where>
+            <trim prefixOverrides="and">
+                <if test="agency.city_id != null">
+                    city_id = #{agency.city_id}
+                </if>
+                <if test="agency.agency_name != null">
+                    and agency_name = #{agency.agency_name}
+                </if>
+                <if test="agency.agency_address != null">
+                    and agency_address = #{agency.agency_address}
+                </if>
+                <if test="agency.connect_phone != null">
+                    and connect_phone = #{agency.connect_phone}
+                </if>
+                <if test="fromDate != null">
+                    and create_time >= date_format(#{fromDate},'%Y-%m-%d')
+                </if>
+                <if test="toDate != null">
+                    and create_time &lt; date_format(#{toDate},'%Y-%m-%d')
+                </if>
+            </trim>
+        </where>
+    </select>
+
+    <select id="queryUserByTime" parameterType="Map"
+            resultType="com.bp.po.User">
+        SELECT * FROM project.t_users
+        <where>
+            <trim prefixOverrides="and">
+                <if test="user.user_name != null">
+                    user_name = #{user.user_name}
+                </if>
+                <if test="user.phone != null">
+                    and phone = #{user.phone}
+                </if>
+                <if test="user.sex != null">
+                    and sex = #{user.sex}
+                </if>
+                <if test="user.soft_del != null">
+                    and soft_del = #{user.soft_del}
+                </if>
+                <if test="fromDate != null">
+                    and create_time >= date_format(#{fromDate},'%Y-%m-%d')
+                </if>
+                <if test="toDate != null">
+                    and create_time &lt; date_format(#{toDate},'%Y-%m-%d')
+                </if>
+            </trim>
+        </where>
+    </select>
+
+
+    <select id="queryOrderByTime" parameterType="Map"
+            resultType="com.bp.po.Order">
+        SELECT * FROM project.t_order
+        <where>
+            <trim prefixOverrides="and">
+                <if test="order.user_name != null">
+                    user_name = #{order.user_name}
+                </if>
+                <if test="order.user_phone != null">
+                    and user_phone = #{order.user_phone}
+                </if>
+                <if test="order.user_sex != null">
+                    and user_sex = #{order.user_sex}
+                </if>
+                <if test="order.agency_id != null">
+                    and agency_id = #{order.agency_id}
+                </if>
+                <if test="order.city_id != null">
+                    and city_id = #{order.city_id}
+                </if>
+                <if test="order.province_id != null">
+                    and province_id = #{order.province_id}
+                </if>
+                <if test="order.car_type_id != null">
+                    and car_type_id = #{order.car_type_id}
+                </if>
+                <if test="order.channel_id != null">
+                    and channel_id = #{order.channel_id}
+                </if>
+                <if test="fromDate != null">
+                    and create_time >= date_format(#{fromDate},'%Y-%m-%d')
+                </if>
+                <if test="toDate != null">
+                    and create_time &lt; date_format(#{toDate},'%Y-%m-%d')
+                </if>
+                <if test="order.status != null">
+                    and status = #{order.status}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+
+    <select id="queryOrderDetailByTime" parameterType="Map"
+            resultType="com.bp.po.OrderDetail">
+        SELECT * FROM project.t_order_detail
+        <where>
+
+            <trim prefixOverrides="and">
+                <if test="orderDetail.name != null">
+                    name = #{orderDetail.name}
+                </if>
+                <if test="orderDetail.sex != null">
+                    and sex = #{orderDetail.sex}
+                </if>
+                <if test="orderDetail.mobile != null">
+                    and mobile = #{orderDetail.mobile}
+                </if>
+                <if test="orderDetail.province != null">
+                    and province = #{orderDetail.province}
+                </if>
+                <if test="orderDetail.city != null">
+                    and city = #{orderDetail.city}
+                </if>
+                <if test="orderDetail.agentName != null">
+                    and agentName = #{orderDetail.agentName}
+                </if>
+                <if test="orderDetail.agentCode != null">
+                    and agentCode = #{orderDetail.agentCode}
+                </if>
+                <if test="orderDetail.carType != null">
+                    and carType = #{orderDetail.carType}
+                </if>
+                <if test="orderDetail.carTypeCode != null">
+                    and carTypeCode = #{orderDetail.carTypeCode}
+                </if>
+                <if test="orderDetail.mediaName != null">
+                    and mediaName = #{orderDetail.mediaName}
+                </if>
+                <if test="orderDetail.mediaUrl != null">
+                    and mediaUrl = #{orderDetail.mediaUrl}
+                </if>
+                <if test="orderDetail.subject != null">
+                    and subject = #{orderDetail.subject}
+                </if>
+                <if test="orderDetail.terminal != null">
+                    and terminal = #{orderDetail.terminal}
+                </if>
+                <if test="orderDetail.is_activity != null">
+                    and is_activity = #{orderDetail.is_activity}
+                </if>
+                <if test="fromDate != null">
+                    and create_time >= date_format(#{fromDate},'%Y-%m-%d')
+                </if>
+                <if test="toDate != null">
+                    and create_time &lt; date_format(#{toDate},'%Y-%m-%d')
+                </if>
+            </trim>
+        </where>
+    </select>
+
+    <select id="queryPhoneRecord" parameterType="com.bp.po.PhoneRecord"
+            resultType="com.bp.po.PhoneRecord" resultSets="java.util.List">
+        SELECT * FROM project.t_users
+        <where>
+            <trim prefixOverrides="and">
+                <if test="phone != null">
+                    phone = #{phone}
+                </if>
+                <if test="agent_name != null">
+                    and agent_name = #{agent_name}
+                </if>
+                <if test="province != null">
+                    and province = #{province}
+                </if>
+                <if test="city != null">
+                    and city = #{city}
                 </if>
             </trim>
         </where>

@@ -1,5 +1,6 @@
 package com.bp.controller;
 
+import com.bp.QueryPO.QueryObject;
 import com.bp.po.*;
 import com.bp.service.CoreService;
 import com.bp.service.impl.CoreServiceImpl;
@@ -121,28 +122,15 @@ public class CoreController {
         return "cost" +(System.currentTimeMillis()) +"ms";
     }
 
-    @RequestMapping(value = "/queryAgency/{page}/{rows}",method = RequestMethod.POST)
-    public List<Agency> queryAgency(@PathVariable("page") Integer page,@PathVariable("rows") Integer rows,@RequestBody Agency agency) throws ExecutionException, InterruptedException {
-
-        return coreService.queryAgencyList(agency,page,rows);
-    }
-//
-//    @RequestMapping(value = "/queryOrderDetail/{page}/{rows}",method = RequestMethod.POST)
-//    public List<OrderDetail> queryOrderDetail(@PathVariable("page") Integer page,@PathVariable("rows") Integer rows,@RequestBody OrderDetail orderDetail) throws ExecutionException, InterruptedException {
-//
-//        return coreService.queryOrderDetailList(orderDetail,page,rows);
-//    }
 
     @RequestMapping(value = "/queryOrderDetail",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> queryOrderDetail1(@RequestBody OrderDetail orderDetail) throws ExecutionException, InterruptedException {
+    public Map<String,Object> queryOrderDetail1(@RequestBody QueryObject<OrderDetail> queryObject) throws ExecutionException, InterruptedException {
 
         Map<String ,Object> map = new HashMap<String,Object>();
-        List<OrderDetail> list = coreService.queryOrderDetailList(orderDetail);
-        map.put("orders",list);
-
-        PageInfo<OrderDetail> pageInfo = new PageInfo<OrderDetail>(list);
-
+        List<OrderDetail> orderDetails = coreService.queryOrderDetailList(queryObject.getQueryObj(),queryObject.getFromDate(),queryObject.getToDate(),queryObject.getPage(),queryObject.getRow());
+        map.put("orders",orderDetails);
+        PageInfo<OrderDetail> pageInfo = new PageInfo<OrderDetail>(orderDetails);
 
         map.put("curr_page",pageInfo.getPageNum());
         map.put("page_size",pageInfo.getPageSize());
@@ -151,15 +139,20 @@ public class CoreController {
         return map;
     }
 
-    @RequestMapping(value = "/queryOrder/{page}/{rows}",method = RequestMethod.POST)
-    public List<Order> queryOrder(@PathVariable("page") Integer page,@PathVariable("rows") Integer rows,@RequestBody Order order) throws ExecutionException, InterruptedException {
-        return coreService.queryOrderList(order,page,rows);
-    }
+    @RequestMapping(value = "/queryPhoneRecord",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> queryPhoneRecord(@RequestBody QueryObject<PhoneRecord> queryObject) throws ExecutionException, InterruptedException {
 
-    @RequestMapping(value = "/queryUser/{page}/{rows}",method = RequestMethod.POST)
-    public List<User> queryUser(@PathVariable("page") Integer page,@PathVariable("rows") Integer rows,@RequestBody User user) throws ExecutionException, InterruptedException {
-        List<User> userList = coreService.queryUserList(user,page,rows);
-        return userList;
+        Map<String ,Object> map = new HashMap<String,Object>();
+        List<PhoneRecord> phoneRecords = coreService.queryPhoneRecordList(queryObject.getQueryObj(),queryObject.getPage(),queryObject.getRow());
+        map.put("phoneRecords",phoneRecords);
+        PageInfo<PhoneRecord> pageInfo = new PageInfo<PhoneRecord>(phoneRecords);
+
+        map.put("curr_page",pageInfo.getPageNum());
+        map.put("page_size",pageInfo.getPageSize());
+        map.put("total",pageInfo.getTotal());
+        map.put("code",20000);
+        return map;
     }
 	
 }
