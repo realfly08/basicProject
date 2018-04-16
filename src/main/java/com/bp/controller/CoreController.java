@@ -145,19 +145,9 @@ public class CoreController {
 
     @RequestMapping(value = "/queryPhoneRecord",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> queryPhoneRecord(@RequestBody PhoneRecord queryObject) throws ExecutionException, InterruptedException {
-/*
-        Map<String ,Object> map = new HashMap<String,Object>();
-        List<PhoneRecord> phoneRecords = coreService.queryPhoneRecordList(queryObject.getQueryObj(),queryObject.getPage(),queryObject.getRow());
-        map.put("phoneRecords",phoneRecords);
-        PageInfo<PhoneRecord> pageInfo = new PageInfo<PhoneRecord>(phoneRecords);
-
-        map.put("curr_page",pageInfo.getPageNum());
-        map.put("page_size",pageInfo.getPageSize());
-        map.put("total",pageInfo.getTotal());
-        map.put("code",20000);
-        return map;*/
-        return null;
+    public Map<String,Object> queryPhoneRecord(@RequestBody PhoneRecord phoneRecord) throws ExecutionException, InterruptedException {
+        List<PhoneRecord> phoneRecords = coreService.queryPhoneRecord(phoneRecord);
+        return getResult(phoneRecords);
     }
 
 

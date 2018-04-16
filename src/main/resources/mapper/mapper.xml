@@ -333,8 +333,7 @@
         </where>
     </select>
 
-    <select id="queryPhoneRecord" parameterType="com.bp.po.PhoneRecord"
-            resultType="com.bp.po.PhoneRecord" resultSets="java.util.List">
+    <select id="queryPhoneRecord" parameterType="com.bp.po.PhoneRecord" resultType="com.bp.po.PhoneRecord">
         SELECT * FROM ad.t_phone_record
         <where>
             <trim prefixOverrides="and">
