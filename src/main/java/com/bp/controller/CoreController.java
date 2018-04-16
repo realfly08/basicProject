@@ -1,6 +1,5 @@
 package com.bp.controller;
 
-import com.bp.QueryPO.QueryObject;
 import com.bp.po.*;
 import com.bp.service.CoreService;
 import com.github.pagehelper.PageInfo;
@@ -17,7 +16,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @CrossOrigin(origins="*" )
-@RestController    //使用restcontroller requestmapping不需要responsebody 自动返回JSON格式
+@RestController
 public class CoreController {
 
    ExecutorService executorService = Executors.newCachedThreadPool();
@@ -30,10 +29,7 @@ public class CoreController {
 
     @RequestMapping(value = "/user",method = RequestMethod.POST)
     public String insertUser(@RequestBody User user) throws ExecutionException, InterruptedException {
-
-        long time = System.currentTimeMillis();
         coreService.insertUser(user);
-        logger.debug(Thread.currentThread().getName()+"cost "+(System.currentTimeMillis()-time) + "ms");
         return "写入成功";
     }
 
@@ -130,42 +126,27 @@ public class CoreController {
         return "写入成功";
     }
 
-    @RequestMapping(value = "/queryUserList",method = RequestMethod.POST)
+    @RequestMapping(value = "/queryUser",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> queryUserList(@RequestBody QueryObject<User> queryObject) throws ExecutionException, InterruptedException {
-
-        Map<String ,Object> map = new HashMap<String,Object>();
-        List<User> users = coreService.queryUserList(queryObject.getQueryObj(),queryObject.getFromDate(),queryObject.getToDate(),queryObject.getPage(),queryObject.getRow());
-        map.put("users",users);
-        PageInfo<User> pageInfo = new PageInfo<User>(users);
-
-        map.put("curr_page",pageInfo.getPageNum());
-        map.put("page_size",pageInfo.getPageSize());
-        map.put("total",pageInfo.getTotal());
-        map.put("code",20000);
-        return map;
+    public Map<String,Object> queryUserList(@RequestBody User user) throws ExecutionException, InterruptedException {
+        List<User> users = coreService.queryUser(user);
+        return getResult(users);
     }
 
     @RequestMapping(value = "/queryOrderDetail",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> queryOrderDetail1(@RequestBody QueryObject<OrderDetail> queryObject) throws ExecutionException, InterruptedException {
+    public Map<String,Object> queryOrderDetail1(@RequestBody OrderDetail orderDetail) throws ExecutionException, InterruptedException {
+        List<OrderDetail> orderDetails = coreService.queryOrderDetail(orderDetail);
 
-        Map<String ,Object> map = new HashMap<String,Object>();
-        List<OrderDetail> orderDetails = coreService.queryOrderDetailList(queryObject.getQueryObj(),queryObject.getFromDate(),queryObject.getToDate(),queryObject.getPage(),queryObject.getRow());
-        map.put("orders",orderDetails);
-        PageInfo<OrderDetail> pageInfo = new PageInfo<OrderDetail>(orderDetails);
-
-        map.put("curr_page",pageInfo.getPageNum());
-        map.put("page_size",pageInfo.getPageSize());
-        map.put("total",pageInfo.getTotal());
-        map.put("code",20000);
-        return map;
+        return getResult(orderDetails);
     }
+
+
 
     @RequestMapping(value = "/queryPhoneRecord",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> queryPhoneRecord(@RequestBody QueryObject<PhoneRecord> queryObject) throws ExecutionException, InterruptedException {
-
+    public Map<String,Object> queryPhoneRecord(@RequestBody PhoneRecord queryObject) throws ExecutionException, InterruptedException {
+/*
         Map<String ,Object> map = new HashMap<String,Object>();
         List<PhoneRecord> phoneRecords = coreService.queryPhoneRecordList(queryObject.getQueryObj(),queryObject.getPage(),queryObject.getRow());
         map.put("phoneRecords",phoneRecords);
@@ -175,7 +156,19 @@ public class CoreController {
         map.put("page_size",pageInfo.getPageSize());
         map.put("total",pageInfo.getTotal());
         map.put("code",20000);
+        return map;*/
+        return null;
+    }
+
+
+    private Map<String, Object> getResult(List results) {
+        Map<String ,Object> map = new HashMap<>();
+        map.put("result",results);
+        PageInfo<Object> pageInfo = new PageInfo<>(results);
+        map.put("curr_page",pageInfo.getPageNum());
+        map.put("page_size",pageInfo.getPageSize());
+        map.put("total",pageInfo.getTotal());
+        map.put("code",20000);
         return map;
     }
-	
 }
