@@ -1,6 +1,9 @@
 package com.bp.po;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 
 public class OrderDetail {
 
@@ -30,8 +33,9 @@ public class OrderDetail {
     String subject;
     @Excel(name = "途径",  orderNum = "12")
     String terminal;
-    @Excel(name = "创建时间",  orderNum = "13")
-    String create_time;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "创建时间",  format = "yyyy-MM-dd HH:mm:ss", orderNum = "13")
+    Date create_time;
     @Excel(name = "活动专题",  orderNum = "14")
     String is_activity;
 
@@ -139,11 +143,11 @@ public class OrderDetail {
         this.terminal = terminal;
     }
 
-    public String getCreate_time() {
+    public Date getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(String create_time) {
+    public void setCreate_time(Date create_time) {
         this.create_time = create_time;
     }
 

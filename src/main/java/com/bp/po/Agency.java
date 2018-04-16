@@ -1,11 +1,17 @@
 package com.bp.po;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 public class Agency {
     String city_id;
     String agency_name;
     String agency_address;
     String connect_phone;
-    String create_time;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    Date create_time;
 
     public String getCity_id() {
         return city_id;
@@ -39,11 +45,7 @@ public class Agency {
         this.connect_phone = connect_phone;
     }
 
-    public String getCreate_time() {
-        return create_time;
-    }
-
-    public void setCreate_time(String create_time) {
+    public void setCreate_time(Date create_time) {
         this.create_time = create_time;
     }
 }

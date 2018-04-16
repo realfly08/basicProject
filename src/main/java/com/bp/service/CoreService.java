@@ -2,6 +2,7 @@ package com.bp.service;
 
 import com.bp.po.*;
 
+import java.util.Date;
 import java.util.List;
 
 public interface CoreService {
@@ -30,15 +31,15 @@ public interface CoreService {
 
     Integer insertPhoneRecord(PhoneRecord phoneRecord);
 
-    List<Agency> queryAgencyList(Agency agency, String fromDate, String toDate, Integer page, Integer rows);
+    List<Agency> queryAgencyList(Agency agency, Date fromDate, Date toDate, Integer page, Integer rows);
 
-    List<OrderDetail> queryOrderDetailList(OrderDetail orderDetail, String fromDate, String toDate, Integer page, Integer rows);
+    List<OrderDetail> queryOrderDetailList(OrderDetail orderDetail, Date fromDate, Date toDate, Integer page, Integer rows);
 
     List<PhoneRecord> queryPhoneRecordList(PhoneRecord phoneRecord, Integer page, Integer rows);
 
-    List<Order> queryOrderList(Order order, String fromDate, String toDate, Integer page, Integer rows);
+    List<Order> queryOrderList(Order order, Date fromDate, Date toDate, Integer page, Integer rows);
 
-    List<User> queryUserList(User user, String fromDate, String toDate, Integer page, Integer rows);
+    List<User> queryUserList(User user, Date fromDate, Date toDate, Integer page, Integer rows);
 
 
 }

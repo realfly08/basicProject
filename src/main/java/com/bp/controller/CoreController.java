@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,9 @@ public class CoreController {
     public String insertUser(@RequestBody User user) throws ExecutionException, InterruptedException {
 
         long time = System.currentTimeMillis();
+        if(user.getCreate_time()==null){
+            user.setCreate_time(new Date());
+        }
         coreService.insertUser(user);
         logger.debug(Thread.currentThread().getName()+"cost "+(System.currentTimeMillis()-time) + "ms");
         return "写入成功";
@@ -80,6 +84,9 @@ public class CoreController {
     public String insertOrder(@RequestBody Order order) throws ExecutionException, InterruptedException {
 
         long time = System.currentTimeMillis();
+        if(order.getCreate_time()==null){
+            order.setCreate_time(new Date());
+        }
         coreService.insertOrder(order);
         logger.debug(Thread.currentThread().getName()+"cost "+(System.currentTimeMillis()-time) + "ms");
         return "写入成功";
@@ -89,6 +96,9 @@ public class CoreController {
     public String insertOrderDetail(@RequestBody OrderDetail orderdetail) throws ExecutionException, InterruptedException {
 
         long time = System.currentTimeMillis();
+        if(orderdetail.getCreate_time()==null){
+            orderdetail.setCreate_time(new Date());
+        }
         coreService.insertOrderDetail(orderdetail);
         logger.debug(Thread.currentThread().getName()+"cost "+(System.currentTimeMillis()-time) + "ms");
         return "写入成功";
@@ -107,6 +117,9 @@ public class CoreController {
     public String insertSupervisor(@RequestBody Supervisor supervisor) throws ExecutionException, InterruptedException {
 
         long time = System.currentTimeMillis();
+        if(supervisor.getCreate_time()==null){
+            supervisor.setCreate_time(new Date());
+        }
         coreService.insertSupervisor(supervisor);
         logger.debug(Thread.currentThread().getName()+"cost "+(System.currentTimeMillis()-time) + "ms");
         return "写入成功";
@@ -116,6 +129,9 @@ public class CoreController {
     public String insertSupervisorEvent(@RequestBody SupervisorEvent supervisorevent) throws ExecutionException, InterruptedException {
 
         long time = System.currentTimeMillis();
+        if(supervisorevent.getCreate_time()==null){
+            supervisorevent.setCreate_time(new Date());
+        }
         coreService.insertSupervisorEvent(supervisorevent);
         logger.debug(Thread.currentThread().getName()+"cost "+(System.currentTimeMillis()-time) + "ms");
         return "写入成功";

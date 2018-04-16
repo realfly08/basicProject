@@ -1,11 +1,16 @@
 package com.bp.QueryPO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 public class QueryObject<T> {
     T t;
     Integer page;
     Integer row;
-    String fromDate;
-    String toDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    Date fromDate;
+    Date toDate;
 
     public T getQueryObj() {
         return t;
@@ -31,19 +36,19 @@ public class QueryObject<T> {
         this.row = row;
     }
 
-    public String getFromDate() {
+    public Date getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(String fromDate) {
+    public void setFromDate(Date fromDate) {
         this.fromDate = fromDate;
     }
 
-    public String getToDate() {
+    public Date getToDate() {
         return toDate;
     }
 
-    public void setToDate(String toDate) {
+    public void setToDate(Date toDate) {
         this.toDate = toDate;
     }
 }
