@@ -1,8 +1,9 @@
 package com.bp.po;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
+import com.bp.QueryPO.QueryObject;
 
-public class PhoneRecord {
+public class PhoneRecord extends QueryObject {
     @Excel(name = "电话", orderNum = "0")
     String phone;
     @Excel(name = "经销商", orderNum = "1")

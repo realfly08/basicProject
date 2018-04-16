@@ -1,49 +1,47 @@
 package com.bp.QueryPO;
 
-public class QueryObject<T> {
-    T t;
-    Integer page;
-    Integer row;
-    String fromDate;
-    String toDate;
+import com.bp.po.Identifiable;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-    public T getQueryObj() {
-        return t;
+import java.util.Date;
+
+public class QueryObject extends Identifiable {
+    Integer pageNum;
+    Integer pageSize;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    Date fromDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    Date toDate;
+
+    public Integer getPageNum() {
+        return pageNum;
     }
 
-    public void setQueryObj(T t) {
-        this.t = t;
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
     }
 
-    public Integer getPage() {
-        return page;
+    public Integer getPageSize() {
+        return pageSize;
     }
 
-    public void setPage(Integer page) {
-        this.page = page;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public Integer getRow() {
-        return row;
-    }
-
-    public void setRow(Integer row) {
-        this.row = row;
-    }
-
-    public String getFromDate() {
+    public Date getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(String fromDate) {
+    public void setFromDate(Date fromDate) {
         this.fromDate = fromDate;
     }
 
-    public String getToDate() {
+    public Date getToDate() {
         return toDate;
     }
 
-    public void setToDate(String toDate) {
+    public void setToDate(Date toDate) {
         this.toDate = toDate;
     }
 }
