@@ -1,8 +1,12 @@
 package com.bp.po;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
+import com.bp.QueryPO.QueryObject;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class OrderDetail {
+import java.util.Date;
+
+public class OrderDetail extends QueryObject {
 
     @Excel(name = "姓名", orderNum = "0")
     String name;
@@ -17,11 +21,11 @@ public class OrderDetail {
     @Excel(name = "经销商",  orderNum = "5")
     String agentName;
     @Excel(name = "经销商code",  orderNum = "6")
-    String agentCode;
+    Integer agentCode;
     @Excel(name = "车型",  orderNum = "7")
     String carType;
     @Excel(name = "车型code",  orderNum = "8")
-    String carTypeCode;
+    Integer carTypeCode;
     @Excel(name = "媒体名字",  orderNum = "9")
     String mediaName;
     @Excel(name = "媒体url",  orderNum = "10")
@@ -30,10 +34,12 @@ public class OrderDetail {
     String subject;
     @Excel(name = "途径",  orderNum = "12")
     String terminal;
-    @Excel(name = "创建时间",  orderNum = "13")
-    String create_time;
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "创建时间",  format = "yyyy-MM-dd HH:mm:ss", orderNum = "13")
+    Date create_time;
     @Excel(name = "活动专题",  orderNum = "14")
-    String is_activity;
+    Integer is_activity;
 
     public String getName() {
         return name;
@@ -83,11 +89,11 @@ public class OrderDetail {
         this.agentName = agentName;
     }
 
-    public String getAgentCode() {
+    public Integer getAgentCode() {
         return agentCode;
     }
 
-    public void setAgentCode(String agentCode) {
+    public void setAgentCode(Integer agentCode) {
         this.agentCode = agentCode;
     }
 
@@ -99,11 +105,11 @@ public class OrderDetail {
         this.carType = carType;
     }
 
-    public String getCarTypeCode() {
+    public Integer getCarTypeCode() {
         return carTypeCode;
     }
 
-    public void setCarTypeCode(String carTypeCode) {
+    public void setCarTypeCode(Integer carTypeCode) {
         this.carTypeCode = carTypeCode;
     }
 
@@ -139,19 +145,19 @@ public class OrderDetail {
         this.terminal = terminal;
     }
 
-    public String getCreate_time() {
+    public Date getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(String create_time) {
+    public void setCreate_time(Date create_time) {
         this.create_time = create_time;
     }
 
-    public String getIs_activity() {
+    public Integer getIs_activity() {
         return is_activity;
     }
 
-    public void setIs_activity(String is_activity) {
+    public void setIs_activity(Integer is_activity) {
         this.is_activity = is_activity;
     }
 }

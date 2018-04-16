@@ -4,7 +4,6 @@ package com.bp.dao;
 import com.bp.po.*;
 
 import java.util.List;
-import java.util.Map;
 
 public interface CoreDao {
 
@@ -32,13 +31,13 @@ public interface CoreDao {
 
     Integer insertPhoneRecord(PhoneRecord phoneRecord);
 
-    List<Agency> queryAgencyByTime(Map paramsMap);
+    List<Agency> queryAgency(Agency agency);
 
-    List<OrderDetail> queryOrderDetailByTime(Map paramsMap);
+    List<OrderDetail> queryOrderDetail(OrderDetail orderDetail);
 
-    List<Order> queryOrderByTime(Map paramsMap);
+    List<Order> queryOrder(Order order);
 
-    List<User> queryUserByTime(Map paramsMap);
+    List<User> queryUser(User user);
 
     List<PhoneRecord> queryPhoneRecord(PhoneRecord phoneRecord);
 }

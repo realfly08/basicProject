@@ -1,11 +1,17 @@
 package com.bp.po;
 
-public class User {
+import com.bp.QueryPO.QueryObject;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
+public class User extends QueryObject {
     String user_name;
     String phone;
-    String sex;
+    Integer sex;
     String soft_del;
-    String create_time;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    Date create_time;
 
     public String getUser_name() {
         return user_name;
@@ -23,11 +29,11 @@ public class User {
         this.phone = phone;
     }
 
-    public String getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
@@ -39,11 +45,11 @@ public class User {
         this.soft_del = soft_del;
     }
 
-    public String getCreate_time() {
+    public Date getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(String create_time) {
+    public void setCreate_time(Date create_time) {
         this.create_time = create_time;
     }
 }

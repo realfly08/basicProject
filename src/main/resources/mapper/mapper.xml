@@ -23,7 +23,7 @@
     </insert>
     <insert id="insertOrderDetail" parameterType="com.bp.po.OrderDetail">
         INSERT INTO ad.t_order_detail( name,sex,mobile,province,city,agentName,agentCode,carType,carTypeCode,mediaName,mediaUrl,subject,terminal,create_time,is_activity)
-        VALUES( #{name},#{sex},#{mobile}, #{province}, #{city},#{agentName},#{agentCode},#{carType},#{carTypeCode},#{mediaName},#{mediaUrl},#{subject},#{terminal},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'),#{is_activity});
+        VALUES( #{name},#{sex},#{mobile}, #{province}, #{city},#{agentName},#{agentCode},#{carType},#{carTypeCode},#{mediaName},#{mediaUrl},#{subject},#{terminal},#{create_time},#{is_activity});
     </insert>
     <insert id="insertProvince" parameterType="com.bp.po.Province">
         INSERT INTO ad.t_province( province_name) VALUES(#{province_name});
@@ -39,7 +39,7 @@
 
     <insert id="insertUser" parameterType="com.bp.po.User">
         INSERT INTO ad.t_users( user_name,phone,sex,soft_del,create_time)
-        VALUES(#{user_name},#{phone},#{sex},#{soft_del},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'));
+        VALUES(#{user_name},#{phone},#{sex},#{soft_del},#{create_time});
     </insert>
 
     <insert id="insertPhoneRecord" parameterType="com.bp.po.PhoneRecord">
@@ -47,7 +47,7 @@
         VALUES(#{phone},#{agent_name},#{province},#{city});
     </insert>
 
-    <select id="queryAgencyList" parameterType="com.bp.po.Agency"
+<!--    <select id="queryAgencyList" parameterType="com.bp.po.Agency"
             resultType="com.bp.po.Agency">
         SELECT * FROM ad.t_agency
         <where>
@@ -137,11 +137,10 @@
         </where>
     </select>
 
-    <select id="queryOrderDetailList" parameterType="com.bp.po.OrderDetail"
+    <select id="queryOrderDetail" parameterType="com.bp.po.OrderDetail"
             resultType="com.bp.po.OrderDetail">
         SELECT * FROM ad.t_order_detail
         <where>
-
             <trim prefixOverrides="and">
                 <if test="name != null">
                     name = #{name}
@@ -190,7 +189,7 @@
                 </if>
             </trim>
         </where>
-    </select>
+    </select>-->
 
 
     <select id="queryAgencyByByTime" parameterType="Map"
@@ -219,34 +218,6 @@
             </trim>
         </where>
     </select>
-
-    <select id="queryUserByTime" parameterType="Map"
-            resultType="com.bp.po.User">
-        SELECT * FROM ad.t_users
-        <where>
-            <trim prefixOverrides="and">
-                <if test="user.user_name != null">
-                    user_name = #{user.user_name}
-                </if>
-                <if test="user.phone != null">
-                    and phone = #{user.phone}
-                </if>
-                <if test="user.sex != null">
-                    and sex = #{user.sex}
-                </if>
-                <if test="user.soft_del != null">
-                    and soft_del = #{user.soft_del}
-                </if>
-                <if test="fromDate != null">
-                    and create_time >= date_format(#{fromDate},'%Y-%m-%d')
-                </if>
-                <if test="toDate != null">
-                    and create_time &lt; date_format(#{toDate},'%Y-%m-%d')
-                </if>
-            </trim>
-        </where>
-    </select>
-
 
     <select id="queryOrderByTime" parameterType="Map"
             resultType="com.bp.po.Order">
@@ -290,61 +261,74 @@
         </where>
     </select>
 
+    <select id="queryUser" parameterType="com.bp.po.User" resultType="com.bp.po.User">
+        SELECT * FROM ad.t_users
+        <where>
+            <trim prefixOverrides="and">
+                <if test="user_name != null">
+                    user_name = #{user_name}
+                </if>
+                <if test="phone != null">
+                    and phone = #{phone}
+                </if>
+                <if test="sex != null">
+                    and sex = #{sex}
+                </if>
+                <if test="soft_del != null">
+                    and soft_del = #{soft_del}
+                </if>
+                <include refid="time_selecotr"/>
+            </trim>
+        </where>
+    </select>
 
-    <select id="queryOrderDetailByTime" parameterType="Map"
-            resultType="com.bp.po.OrderDetail">
+    <select id="queryOrderDetail" parameterType="com.bp.po.OrderDetail" resultType="com.bp.po.OrderDetail">
         SELECT * FROM ad.t_order_detail
         <where>
-
             <trim prefixOverrides="and">
-                <if test="orderDetail.name != null">
-                    name = #{orderDetail.name}
+                <if test="name != null">
+                    name = #{name}
                 </if>
-                <if test="orderDetail.sex != null">
-                    and sex = #{orderDetail.sex}
+                <if test="sex != null">
+                    and sex = #{sex}
                 </if>
-                <if test="orderDetail.mobile != null">
-                    and mobile = #{orderDetail.mobile}
+                <if test="mobile != null">
+                    and mobile = #{mobile}
                 </if>
-                <if test="orderDetail.province != null">
-                    and province = #{orderDetail.province}
+                <if test="province != null">
+                    and province = #{province}
                 </if>
-                <if test="orderDetail.city != null">
-                    and city = #{orderDetail.city}
+                <if test="city != null">
+                    and city = #{city}
                 </if>
-                <if test="orderDetail.agentName != null">
-                    and agentName = #{orderDetail.agentName}
+                <if test="agentName != null">
+                    and agentName = #{agentName}
                 </if>
-                <if test="orderDetail.agentCode != null">
-                    and agentCode = #{orderDetail.agentCode}
+                <if test="agentCode != null">
+                    and agentCode = #{agentCode}
                 </if>
-                <if test="orderDetail.carType != null">
-                    and carType = #{orderDetail.carType}
+                <if test="carType != null">
+                    and carType = #{carType}
                 </if>
-                <if test="orderDetail.carTypeCode != null">
-                    and carTypeCode = #{orderDetail.carTypeCode}
+                <if test="carTypeCode != null">
+                    and carTypeCode = #{carTypeCode}
                 </if>
-                <if test="orderDetail.mediaName != null">
-                    and mediaName = #{orderDetail.mediaName}
+                <if test="mediaName != null">
+                    and mediaName = #{mediaName}
                 </if>
-                <if test="orderDetail.mediaUrl != null">
-                    and mediaUrl = #{orderDetail.mediaUrl}
+                <if test="mediaUrl != null">
+                    and mediaUrl = #{mediaUrl}
                 </if>
-                <if test="orderDetail.subject != null">
-                    and subject = #{orderDetail.subject}
+                <if test="subject != null">
+                    and subject = #{subject}
                 </if>
-                <if test="orderDetail.terminal != null">
-                    and terminal = #{orderDetail.terminal}
+                <if test="terminal != null">
+                    and terminal = #{terminal}
                 </if>
-                <if test="orderDetail.is_activity != null">
-                    and is_activity = #{orderDetail.is_activity}
+                <if test="is_activity != null">
+                    and is_activity = #{is_activity}
                 </if>
-                <if test="fromDate != null">
-                    and create_time >= date_format(#{fromDate},'%Y-%m-%d')
-                </if>
-                <if test="toDate != null">
-                    and create_time &lt; date_format(#{toDate},'%Y-%m-%d')
-                </if>
+                <include refid="time_selecotr"/>
             </trim>
         </where>
     </select>
@@ -369,4 +353,22 @@
             </trim>
         </where>
     </select>
+
+    <sql id="time_selecotr">
+        <choose>
+            <when test="fromDate != null or toDate != null">
+                <if test="fromDate != null">
+                    and create_time &gt;= #{fromDate}
+                </if>
+                <if test="toDate != null">
+                    and create_time &lt; #{toDate}
+                </if>
+            </when>
+            <otherwise>
+                <if test="create_time != null">
+                    and create_time = #{create_time}
+                </if>
+            </otherwise>
+        </choose>
+    </sql>
 </mapper>
