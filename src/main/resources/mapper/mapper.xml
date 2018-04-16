@@ -3,7 +3,7 @@
 <mapper namespace="com.bp.dao.CoreDao"  >
 
     <insert id="insertAgency" parameterType="com.bp.po.Agency">
-        INSERT INTO ad.t_agency(city_id,agency_name,agency_address,connect_phone,create_time) VALUES(    #{city_id},#{agency_name},#{agency_address}, #{connect_phone},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'));
+        INSERT INTO ad.t_agency(city_id,agency_name,agency_address,connect_phone,create_time) VALUES(  #{city_id},#{agency_name},#{agency_address}, #{connect_phone},#{create_time});
     </insert>
     <insert id="insertBrand" parameterType="com.bp.po.Brand">
         INSERT INTO ad.t_brand( name,decription,status)VALUES(#{name}, #{decription}, #{status});
@@ -19,27 +19,27 @@
     </insert>
     <insert id="insertOrder" parameterType="com.bp.po.Order">
         INSERT INTO ad.t_order(user_name,user_phone,user_sex, agency_id,city_id,province_id,car_type_id,channel_id,create_time,update_time,status,)
-        VALUES( #{user_name},#{user_phone},#{user_sex},#{agency_id},#{city_id},#{province_id},#{car_type_id},#{channel_id},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'),str_to_date(#{update_time},'%Y-%m-%d %H:%i:%s'),#{status});
+        VALUES( #{user_name},#{user_phone},#{user_sex},#{agency_id},#{city_id},#{province_id},#{car_type_id},#{channel_id},#{create_time},#{update_time},#{status});
     </insert>
     <insert id="insertOrderDetail" parameterType="com.bp.po.OrderDetail">
         INSERT INTO ad.t_order_detail( name,sex,mobile,province,city,agentName,agentCode,carType,carTypeCode,mediaName,mediaUrl,subject,terminal,create_time,is_activity)
-        VALUES( #{name},#{sex},#{mobile}, #{province}, #{city},#{agentName},#{agentCode},#{carType},#{carTypeCode},#{mediaName},#{mediaUrl},#{subject},#{terminal},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'),#{is_activity});
+        VALUES( #{name},#{sex},#{mobile}, #{province}, #{city},#{agentName},#{agentCode},#{carType},#{carTypeCode},#{mediaName},#{mediaUrl},#{subject},#{terminal},#{create_time},#{is_activity});
     </insert>
     <insert id="insertProvince" parameterType="com.bp.po.Province">
         INSERT INTO ad.t_province( province_name) VALUES(#{province_name});
     </insert>
     <insert id="insertSupervisor" parameterType="com.bp.po.Supervisor">
         INSERT INTO ad.t_supervisor( supervisor_name,supervisor_phone,password,sex,birthday,qq,email,head_image_path,status,create_time)
-        VALUES(#{supervisor_name},#{supervisor_phone},#{password},#{sex},#{birthday},#{qq},#{email},#{head_image_path},#{status},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'));
+        VALUES(#{supervisor_name},#{supervisor_phone},#{password},#{sex},#{birthday},#{qq},#{email},#{head_image_path},#{status},#{create_time});
     </insert>
     <insert id="insertSupervisorEvent" parameterType="com.bp.po.SupervisorEvent">
         INSERT INTO ad.t_province_event( supervisor_id,event_name,ip,create_time)
-        VALUES(#{supervisor_id},#{event_name},#{ip},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'));
+        VALUES(#{supervisor_id},#{event_name},#{ip},#{create_time});
     </insert>
 
     <insert id="insertUser" parameterType="com.bp.po.User">
         INSERT INTO ad.t_users( user_name,phone,sex,soft_del,create_time)
-        VALUES(#{user_name},#{phone},#{sex},#{soft_del},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'));
+        VALUES(#{user_name},#{phone},#{sex},#{soft_del},#{create_time});
     </insert>
 
     <insert id="insertPhoneRecord" parameterType="com.bp.po.PhoneRecord">
@@ -65,7 +65,7 @@
                     and connect_phone = #{connect_phone}
                 </if>
                 <if test="create_time != null">
-                    and create_time = date_format(#{create_time},'%Y-%m-%d %h:%i:%s')
+                    and create_time = #{create_time}
                 </if>
             </trim>
         </where>
@@ -89,7 +89,7 @@
                     and soft_del = #{soft_del}
                 </if>
                 <if test="create_time != null">
-                    and create_time = date_format(#{create_time},'%Y-%m-%d %h:%i:%s')
+                    and create_time = #{create_time}
                 </if>
             </trim>
         </where>
@@ -125,10 +125,10 @@
                     and channel_id = #{channel_id}
                 </if>
                 <if test="create_time != null">
-                    and create_time = date_format(#{create_time},'%Y-%m-%d %h:%i:%s')
+                    and create_time = #{create_time}
                 </if>
                 <if test="update_time != null">
-                    and update_time = date_format(#{update_time},'%Y-%m-%d %h:%i:%s')
+                    and update_time = #{update_time}
                 </if>
                 <if test="status != null">
                     and status = #{status}
@@ -183,7 +183,7 @@
                     and terminal = #{terminal}
                 </if>
                 <if test="create_time != null">
-                    and create_time = date_format(#{create_time},'%Y-%m-%d %h:%i:%s')
+                    and create_time = #{create_time}
                 </if>
                 <if test="is_activity != null">
                     and is_activity = #{is_activity}
@@ -211,10 +211,10 @@
                     and connect_phone = #{agency.connect_phone}
                 </if>
                 <if test="fromDate != null">
-                    and create_time >= date_format(#{fromDate},'%Y-%m-%d')
+                    and create_time >= #{fromDate}
                 </if>
                 <if test="toDate != null">
-                    and create_time &lt; date_format(#{toDate},'%Y-%m-%d')
+                    and create_time &lt; #{toDate}
                 </if>
             </trim>
         </where>
@@ -238,10 +238,10 @@
                     and soft_del = #{user.soft_del}
                 </if>
                 <if test="fromDate != null">
-                    and create_time >= date_format(#{fromDate},'%Y-%m-%d')
+                    and create_time >= #{fromDate}
                 </if>
                 <if test="toDate != null">
-                    and create_time &lt; date_format(#{toDate},'%Y-%m-%d')
+                    and create_time &lt; #{toDate}
                 </if>
             </trim>
         </where>
@@ -278,10 +278,10 @@
                     and channel_id = #{order.channel_id}
                 </if>
                 <if test="fromDate != null">
-                    and create_time >= date_format(#{fromDate},'%Y-%m-%d')
+                    and create_time >= #{fromDate}
                 </if>
                 <if test="toDate != null">
-                    and create_time &lt; date_format(#{toDate},'%Y-%m-%d')
+                    and create_time &lt; #{toDate}
                 </if>
                 <if test="order.status != null">
                     and status = #{order.status}
@@ -340,10 +340,10 @@
                     and is_activity = #{orderDetail.is_activity}
                 </if>
                 <if test="fromDate != null">
-                    and create_time >= date_format(#{fromDate},'%Y-%m-%d')
+                    and create_time >= #{fromDate}
                 </if>
                 <if test="toDate != null">
-                    and create_time &lt; date_format(#{toDate},'%Y-%m-%d')
+                    and create_time &lt; #{toDate}
                 </if>
             </trim>
         </where>

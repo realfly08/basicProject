@@ -1,5 +1,9 @@
 package com.bp.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 public class Order {
     String user_name;
     String user_phone;
@@ -9,8 +13,10 @@ public class Order {
     String province_id;
     String car_type_id;
     String channel_id;
-    String create_time;
-    String update_time;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    Date create_time;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    Date update_time;
     String status;
 
     public String getUser_name() {
@@ -77,19 +83,19 @@ public class Order {
         this.channel_id = channel_id;
     }
 
-    public String getCreate_time() {
+    public Date getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(String create_time) {
+    public void setCreate_time(Date create_time) {
         this.create_time = create_time;
     }
 
-    public String getUpdate_time() {
+    public Date getUpdate_time() {
         return update_time;
     }
 
-    public void setUpdate_time(String update_time) {
+    public void setUpdate_time(Date update_time) {
         this.update_time = update_time;
     }
 

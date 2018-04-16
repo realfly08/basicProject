@@ -8,6 +8,7 @@ import com.mysql.jdbc.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,15 +76,15 @@ public class CoreServiceImpl implements CoreService {
         return coreDao.insertPhoneRecord(phoneRecord);
     }
 
-    public List<Agency> queryAgencyList(Agency agency, String fromDate, String toDate, Integer page, Integer rows){
+    public List<Agency> queryAgencyList(Agency agency, Date fromDate, Date toDate, Integer page, Integer rows){
         Map paramsMap = new HashMap<String,Object>();
         if(agency==null){
             agency = new Agency();
         }
-        if(!StringUtils.isNullOrEmpty(fromDate)){
+        if(null!=fromDate){
             paramsMap.put("fromDate",fromDate);
         }
-        if(!StringUtils.isNullOrEmpty(toDate)){
+        if(null!=toDate){
             paramsMap.put("toDate",toDate);
         }
         paramsMap.put("agency",agency);
@@ -91,15 +92,15 @@ public class CoreServiceImpl implements CoreService {
         return coreDao.queryAgencyByTime(paramsMap);
     }
 
-    public List<OrderDetail> queryOrderDetailList(OrderDetail orderDetail, String fromDate, String toDate, Integer page, Integer rows){
+    public List<OrderDetail> queryOrderDetailList(OrderDetail orderDetail, Date fromDate, Date toDate, Integer page, Integer rows){
         Map paramsMap = new HashMap<String,Object>();
         if(orderDetail==null){
             orderDetail = new OrderDetail();
         }
-        if(!StringUtils.isNullOrEmpty(fromDate)){
+        if(null!=fromDate){
             paramsMap.put("fromDate",fromDate);
         }
-        if(!StringUtils.isNullOrEmpty(toDate)){
+        if(null!=toDate){
             paramsMap.put("toDate",toDate);
         }
         paramsMap.put("orderDetail",orderDetail);
@@ -109,15 +110,15 @@ public class CoreServiceImpl implements CoreService {
         return coreDao.queryOrderDetailByTime(paramsMap);
     }
 
-    public List<Order> queryOrderList(Order order, String fromDate, String toDate, Integer page, Integer rows){
+    public List<Order> queryOrderList(Order order, Date fromDate, Date toDate, Integer page, Integer rows){
         Map paramsMap = new HashMap<String,Object>();
         if(order==null){
             order = new Order();
         }
-        if(!StringUtils.isNullOrEmpty(fromDate)){
+        if(null!=fromDate){
             paramsMap.put("fromDate",fromDate);
         }
-        if(!StringUtils.isNullOrEmpty(toDate)){
+        if(null!=toDate){
             paramsMap.put("toDate",toDate);
         }
         paramsMap.put("order",order);
@@ -125,15 +126,15 @@ public class CoreServiceImpl implements CoreService {
         return coreDao.queryOrderByTime(paramsMap);
     }
 
-    public List<User> queryUserList(User user, String fromDate, String toDate, Integer page, Integer rows){
+    public List<User> queryUserList(User user, Date fromDate, Date toDate, Integer page, Integer rows){
         Map paramsMap = new HashMap<String,Object>();
         if(user==null){
             user = new User();
         }
-        if(!StringUtils.isNullOrEmpty(fromDate)){
+        if(null!=fromDate){
             paramsMap.put("fromDate",fromDate);
         }
-        if(!StringUtils.isNullOrEmpty(toDate)){
+        if(null!=toDate){
             paramsMap.put("toDate",toDate);
         }
         paramsMap.put("user",user);

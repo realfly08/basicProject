@@ -1,11 +1,16 @@
 package com.bp.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 public class User {
     String user_name;
     String phone;
     String sex;
     String soft_del;
-    String create_time;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    Date create_time;
 
     public String getUser_name() {
         return user_name;
@@ -39,11 +44,11 @@ public class User {
         this.soft_del = soft_del;
     }
 
-    public String getCreate_time() {
+    public Date getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(String create_time) {
+    public void setCreate_time(Date create_time) {
         this.create_time = create_time;
     }
 }

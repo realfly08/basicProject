@@ -1,10 +1,15 @@
 package com.bp.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 public class SupervisorEvent {
     String supervisor_id;
     String event_name;
     String ip;
-    String create_time;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    Date create_time;
 
     public String getSupervisor_id() {
         return supervisor_id;
@@ -30,11 +35,11 @@ public class SupervisorEvent {
         this.ip = ip;
     }
 
-    public String getCreate_time() {
+    public Date getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(String create_time) {
+    public void setCreate_time(Date create_time) {
         this.create_time = create_time;
     }
 }

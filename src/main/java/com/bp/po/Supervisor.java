@@ -1,5 +1,9 @@
 package com.bp.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 public class Supervisor {
     String supervisor_name;
     String supervisor_phone;
@@ -10,7 +14,8 @@ public class Supervisor {
     String email;
     String head_image_path;
     String status;
-    String create_time;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    Date create_time;
 
     public String getSupervisor_name() {
         return supervisor_name;
@@ -84,11 +89,11 @@ public class Supervisor {
         this.status = status;
     }
 
-    public String getCreate_time() {
+    public Date getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(String create_time) {
+    public void setCreate_time(Date create_time) {
         this.create_time = create_time;
     }
 }
