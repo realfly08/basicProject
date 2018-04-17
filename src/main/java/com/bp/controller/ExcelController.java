@@ -39,16 +39,26 @@ public class ExcelController {
 	public void downloadPhoneRecord(PhoneRecord phoneRecord, HttpServletResponse response) throws Exception {
 		List<PhoneRecord> list = coreService.queryPhoneRecord(phoneRecord);
 		response.setHeader("content-Type", "application/vnd.ms-excel");
-		FileUtil.exportExcel(list,"phoneRecord","phoneRecord",OrderDetail.class,"信息.xls",response);
+		FileUtil.exportExcel(list,"phoneRecord","phoneRecord",PhoneRecord.class,"电话.xls",response);
 	}
 
 /*	@RequestMapping(value = "/testdown",method = RequestMethod.GET)
 	public void testDownLoad( HttpServletResponse response) throws Exception {
 		OrderDetail orderDetail = new OrderDetail();
 		orderDetail.setName("xxxx");
-		List<OrderDetail> list = coreService.queryOrderDetailList(orderDetail,null,null,null,null);
+		List<OrderDetail> list = coreService.queryOrderDetail(orderDetail);
 		response.setHeader("content-Type", "application/vnd.ms-excel");
 		FileUtil.exportExcel(list,"orderDetail","orderDetail",OrderDetail.class,"订单.xls",response);
+	}
+
+	@RequestMapping(value = "/testphone",method = RequestMethod.GET)
+	public void testDownLoadPhone( HttpServletResponse response) throws Exception {
+		PhoneRecord phoneRecord = new PhoneRecord();
+		phoneRecord.setPhone("12345");
+		List<PhoneRecord> list = coreService.queryPhoneRecord(phoneRecord);
+		response.setHeader("content-Type", "application/vnd.ms-excel");
+		FileUtil.exportExcel(list,"phoneRecord","phoneRecord",PhoneRecord.class,"电话.xls",response);
 	}*/
+
 	
 }

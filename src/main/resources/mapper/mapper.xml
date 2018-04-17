@@ -43,8 +43,8 @@
     </insert>
 
     <insert id="insertPhoneRecord" parameterType="com.bp.po.PhoneRecord">
-        INSERT INTO ad.t_phone_record( phone,agent_name,province,city)
-        VALUES(#{phone},#{agent_name},#{province},#{city});
+        INSERT INTO ad.t_phone_record( phone,agent_name,province,city,create_time)
+        VALUES(#{phone},#{agent_name},#{province},#{city},#{create_time});
     </insert>
 
 <!--    <select id="queryAgencyList" parameterType="com.bp.po.Agency"
@@ -349,6 +349,7 @@
                 <if test="city != null">
                     and city = #{city}
                 </if>
+                <include refid="time_selecotr"/>
             </trim>
         </where>
     </select>
