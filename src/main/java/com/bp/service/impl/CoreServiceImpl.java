@@ -80,6 +80,9 @@ public class CoreServiceImpl implements CoreService {
 
     @Override
     public Integer insertPhoneRecord(PhoneRecord phoneRecord) {
+        if(null == phoneRecord.getCreate_time()){
+            phoneRecord.setCreate_time(new Date());
+        }
         return coreDao.insertPhoneRecord(phoneRecord);
     }
 
