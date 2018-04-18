@@ -30,7 +30,7 @@ public class WeChatController {
         String signature ="";
         try {
             signature = SignatureUtil.getSignature(sigReq.getUrl(),sigReq.getNoicestr(),sigReq.getTimestamp());
-        } catch (ExecutionException e) {
+        } catch (Exception e) {
             logger.warn("get signature failed");
             e.printStackTrace();
         }
