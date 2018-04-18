@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
@@ -22,39 +23,22 @@ public class SignatureUtil {
 
     protected static final Logger logger = LoggerFactory.getLogger(SignatureUtil.class);
 
-    private static String SHA1(String decript) {
-        try {
-            MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
-            digest.update(decript.getBytes());
-            byte messageDigest[] = digest.digest();
-            // Create Hex String
-            StringBuffer hexString = new StringBuffer();
-            // 字节数组转换为 十六进制 数
-            for (int i = 0; i < messageDigest.length; i++) {
-                String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);
-                if (shaHex.length() < 2) {
-                    hexString.append(0);
-                }
-                hexString.append(shaHex);
-            }
-            return hexString.toString();
-
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-    private static String byteToHex(final byte[] hash) {
+    private static String SHA1(String decript) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+        crypt.reset();
+        crypt.update(decript.getBytes("UTF-8"));
         Formatter formatter = new Formatter();
-        for (byte b : hash) {
+        for (byte b : crypt.digest())
+        {
             formatter.format("%02x", b);
         }
         String result = formatter.toString();
         formatter.close();
+
         return result;
     }
 
-    public static String getSignature(String url, String noicestr, String timestamp) throws ExecutionException {
+    public static String getSignature(String url, String noncestr, String timestamp) throws ExecutionException, UnsupportedEncodingException, NoSuchAlgorithmException {
 
         String jsapi_ticket = cache.get("jsapi_ticket", new Callable<String>() {
             public String call() {
@@ -124,22 +108,14 @@ public class SignatureUtil {
                 return ticket;
             }
         });
+        String str = "jsapi_ticket=" + jsapi_ticket +
+                            "&noncestr=" + noncestr +
+                            "&timestamp=" + timestamp +
+                            "&url=" + url;
 
-        String signature = "jsapi_ticket="+jsapi_ticket;
-        signature += "&noncestr="+noicestr;
-        signature += "&timestamp="+timestamp;
-        signature += "&url="+url;
-
-        try {
-            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-            crypt.reset();
-            crypt.update(signature.getBytes("UTF-8"));
-            signature = byteToHex(crypt.digest());
-        } catch (Exception e) {
-            logger.error("Signature for SHA-1 is error:{}",e);
-        }
-        return signature;
+        return SHA1(str);
     }
+
 
     private static Cache<String, String> cache = CacheBuilder.newBuilder().expireAfterWrite(7000, TimeUnit.SECONDS).maximumSize(100).build();
 
