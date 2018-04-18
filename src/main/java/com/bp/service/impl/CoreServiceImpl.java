@@ -48,9 +48,6 @@ public class CoreServiceImpl implements CoreService {
 
     @Override
     public Integer insertOrderDetail(OrderDetail orderDetail) {
-        if(null == orderDetail.getCreate_time()){
-            orderDetail.setCreate_time(new Date());
-        }
         return coreDao.insertOrderDetail(orderDetail);
     }
 
@@ -71,18 +68,11 @@ public class CoreServiceImpl implements CoreService {
 
     @Override
     public Integer insertUser(User user) {
-        if(null == user.getCreate_time()){
-            user.setCreate_time(new Date());
-        }
-
         return coreDao.insertUser(user);
     }
 
     @Override
     public Integer insertPhoneRecord(PhoneRecord phoneRecord) {
-        if(null == phoneRecord.getCreate_time()){
-            phoneRecord.setCreate_time(new Date());
-        }
         return coreDao.insertPhoneRecord(phoneRecord);
     }
 

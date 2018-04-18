@@ -22,8 +22,8 @@
         VALUES( #{user_name},#{user_phone},#{user_sex},#{agency_id},#{city_id},#{province_id},#{car_type_id},#{channel_id},str_to_date(#{create_time},'%Y-%m-%d %H:%i:%s'),str_to_date(#{update_time},'%Y-%m-%d %H:%i:%s'),#{status});
     </insert>
     <insert id="insertOrderDetail" parameterType="com.bp.po.OrderDetail">
-        INSERT INTO ad.t_order_detail( name,sex,mobile,province,city,agentName,agentCode,carType,carTypeCode,mediaName,mediaUrl,subject,terminal,create_time,is_activity)
-        VALUES( #{name},#{sex},#{mobile}, #{province}, #{city},#{agentName},#{agentCode},#{carType},#{carTypeCode},#{mediaName},#{mediaUrl},#{subject},#{terminal},#{create_time},#{is_activity});
+        INSERT INTO ad.t_order_detail( name,sex,mobile,province,city,agentName,agentCode,carType,carTypeCode,mediaName,mediaUrl,subject,terminal,is_activity)
+        VALUES( #{name},#{sex},#{mobile}, #{province}, #{city},#{agentName},#{agentCode},#{carType},#{carTypeCode},#{mediaName},#{mediaUrl},#{subject},#{terminal},#{is_activity});
     </insert>
     <insert id="insertProvince" parameterType="com.bp.po.Province">
         INSERT INTO ad.t_province( province_name) VALUES(#{province_name});
@@ -38,13 +38,13 @@
     </insert>
 
     <insert id="insertUser" parameterType="com.bp.po.User">
-        INSERT INTO ad.t_users( user_name,phone,sex,soft_del,create_time)
-        VALUES(#{user_name},#{phone},#{sex},#{soft_del},#{create_time});
+        INSERT INTO ad.t_users( user_name,phone,sex,soft_del)
+        VALUES(#{user_name},#{phone},#{sex},#{soft_del});
     </insert>
 
     <insert id="insertPhoneRecord" parameterType="com.bp.po.PhoneRecord">
-        INSERT INTO ad.t_phone_record( phone,agent_name,province,city,create_time)
-        VALUES(#{phone},#{agent_name},#{province},#{city},#{create_time});
+        INSERT INTO ad.t_phone_record( phone,agent_name,province,city)
+        VALUES(#{phone},#{agent_name},#{province},#{city});
     </insert>
 
 <!--    <select id="queryAgencyList" parameterType="com.bp.po.Agency"
