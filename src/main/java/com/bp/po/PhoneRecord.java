@@ -2,6 +2,9 @@ package com.bp.po;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.bp.QueryPO.QueryObject;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 
 public class PhoneRecord extends QueryObject {
     @Excel(name = "电话", orderNum = "0")
@@ -12,6 +15,9 @@ public class PhoneRecord extends QueryObject {
     String province;
     @Excel(name = "市", orderNum = "4")
     String city;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "时间",  format = "yyyy-MM-dd HH:mm:ss", orderNum = "5")
+    Date create_time;
 
     public String getPhone() {
         return phone;
@@ -43,5 +49,13 @@ public class PhoneRecord extends QueryObject {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public Date getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
     }
 }
